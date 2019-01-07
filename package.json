@@ -1,0 +1,23 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "Using Puppeteer and Async to scrape content.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinDM/web-scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartinDM/web-scraper/issues"
+  },
+  "homepage": "https://github.com/MartinDM/web-scraper#readme",
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  }
+}
