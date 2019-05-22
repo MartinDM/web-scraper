@@ -128,3 +128,18 @@ getJson('data.json').then( res => {
 }).then( () => {
    document.body.style.backgroundColor = 'lightgrey';
 })
+
+// Sequencing
+const sequence = Promise.resolve();
+
+story.chapterUrls.forEach( (chapterUrl, i) => {
+    console.log(i)
+    // build up sequence
+    sequence = sequence.then( () => {
+        return getJson(chapterUrl);
+    })
+    .then( res => {
+        console.log(res)
+        document.write('article Text')
+    })
+});

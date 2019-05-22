@@ -1,12 +1,6 @@
 const puppeteer = require('puppeteer');
 const fetch = require("node-fetch");
 
-// Safe IIFE
-// Out of global glope
-;(function(){
-    // ...
-})();
-
 (async () => { 
 
     const browser = await puppeteer.launch();
@@ -23,11 +17,8 @@ const fetch = require("node-fetch");
        await page.close();
        return singles;
     }
- 
 
     const tracks = await getSinglesFromArtistWikiPage(url);
- 
- 
     const getArtworkForTracks = async (artist, tracks) => {
         let artwork;
         tracks.forEach( (track) => { 
@@ -43,10 +34,7 @@ const fetch = require("node-fetch");
         return covers;
     }
 
-
     const covers = await getArtworkForTracks('Metallica', tracks);
-    console.log('covers:',covers);
-
-    //console.log( getArtistObject('Metallica', tracks) );
-
+    console.log('covers:', covers);
+  
 })()

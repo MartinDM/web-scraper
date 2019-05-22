@@ -14,5 +14,6 @@ import { heavyMetalObject } from './lib/heavyMetalObject';
 // Todo:
 /*
 Use Axios
-use gerHTML function imported into file > pass it a url
+use getHTML function imported into file > pass it a url
+
 */
