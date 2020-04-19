@@ -6,7 +6,15 @@ const fetch = require("node-fetch");
     const browser = await puppeteer.launch();
     const artist = 'Metallica';
     const url = `https://en.wikipedia.org/wiki/Metallica_discography`;
-    
+
+    const init = async () => { 
+        // Fetch tracks first
+        const singles = await getSinglesFromArtistWikiPage(url);
+        console.log(artist)
+        const covers = await getArtworkForSingles(artist, singles);
+        console.log('covers are', covers)
+    }
+ 
     const getSinglesFromArtistWikiPage = async (url) => {
        const page = await browser.newPage();
        await page.goto(url);
@@ -18,23 +26,27 @@ const fetch = require("node-fetch");
        return singles;
     }
 
-    const tracks = await getSinglesFromArtistWikiPage(url);
-    const getArtworkForTracks = async (artist, tracks) => {
-        let artwork;
-        tracks.forEach( (track) => { 
-            fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=440727626b4c31180a790ce8a03247d8&artist=${artist}&track=${track}&format=json`)
-                .then( res => res.json() )
-                .then( data => data.track.album.image[3]["#text"])
-                .then( (cover) => {
-                    console.log(cover.split('300/')[1])
-                    artwork.push(res)
-                })
-                .catch(error =>  null)
+    const getArtworkForSingles = async (artist, singles) => {
+        const artwork = [];
+        console.log(singles)
+        singles.forEach( (single) => { 
+            fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=440727626b4c31180a790ce8a03247d8&artist=${artist}&track=${single}&format=json`)
+            .then( res => res.json() ) 
+            .then( (data) => {
+                const tmp = data.track.album.image.map( img => img['#text'] )  
+                return tmp
+            })
+            .then( (albumImageData) => {
+                artwork.push(albumImageData[0])
+            })
+            .then( () => {
+                return artwork
+            })
+            .catch(error =>  null)
         })
-        return covers;
+        return artwork;
     }
-
-    const covers = await getArtworkForTracks('Metallica', tracks);
-    console.log('covers:', covers);
+     
+    init(); 
   
 })()

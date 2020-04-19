@@ -47,7 +47,5 @@
             }
         }; 
     }())
-    
-    console.log(App.sayName('Martin'))
     console.log(App.fetchPage('https://www.reddit.com/r/javascript.json'))
 })();
